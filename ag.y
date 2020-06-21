@@ -1,7 +1,5 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
+#include "funcs.h"
 
 
 
@@ -11,15 +9,33 @@
 
 %%
 
-ontologia  : sujeito predicados						{ }
+ontologia  : sujeito predicados						{ 
+														ontologia o = malloc(sizeof(ontologia));
+														o.sujeito = $1;
+														o.predicados = $2; 
+													}
 		   ;
 
-predicados : predicado objetos						{ }
-		   | predicado objetos ';' predicados 		{ }
+predicados : predicado objetos						{
+														predicado p = malloc(sizeof(predicado));
+														p.predicado = $1;
+														p.objects = $2;
+													}
+		   | predicado objetos ';' predicados 		{
+		   												predicado p = malloc(sizeof(predicado));
+														p.predicado = $1;
+														p.objects = $2;
+
+														// E os outros são $3
+		   											}
 		   ;  
 
-objetos    : objeto									{ }
-		   | objeto ',' objetos						{ }
+objetos    : objeto									{
+
+													}
+		   | objeto ',' objetos						{
+		   												 
+		   											}
 		   ;
 
 
