@@ -9,34 +9,32 @@
 
 %%
 
-ontologia  : sujeito predicados						{ 
-														ontologia o = malloc(sizeof(ontologia));
-														o.sujeito = $1;
-														o.predicados = $2; 
-													}
-		   ;
+ontologia  
+	: sujeito predicados	{ 	ontologia o = malloc(sizeof(ontologia));
+								o.sujeito = $1;
+								o.predicados = $2; 
+							}
+	;
 
-predicados : predicado objetos						{
-														predicado p = malloc(sizeof(predicado));
-														p.predicado = $1;
-														p.objects = $2;
-													}
-		   | predicado objetos ';' predicados 		{
-		   												predicado p = malloc(sizeof(predicado));
-														p.predicado = $1;
-														p.objects = $2;
-
-														// E os outros são $3
+predicados : 
+	predicado objetos	{	predicado p = malloc(sizeof(predicado));
+							p.predicado = $1;
+							p.objects = $2;
+						}
+	| predicado objetos ';' predicados 		{	predicado p = malloc(sizeof(predicado));
+												p.predicado = $1;
+												p.objects = $2;
+												// E os outros são $3
 		   											}
-		   ;  
+	;  
 
-objetos    : objeto									{
+objetos : 
+	objeto	{
+			}
+	| objeto ',' objetos	{
 
-													}
-		   | objeto ',' objetos						{
-		   												 
-		   											}
-		   ;
+		   					}
+	;
 
 
 %%
