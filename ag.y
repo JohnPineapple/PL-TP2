@@ -25,7 +25,7 @@ predicados :
 												p.predicado = $1;
 												p.objects = $2;
 												// E os outros são $3
-		   											}
+		   									}
 	;  
 
 objetos : 
