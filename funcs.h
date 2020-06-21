@@ -15,12 +15,15 @@ typedef void* object;
 typedef struct Ontologia
 {
     URI sujeito;
-    URI predicado;
-    object objeto;	
+    predicado[] predicados;
     struct Ontologia* nextOntologia;
 }*ontologia;
 
-
+typedef struct Predicado
+{
+	URI predicado;
+	object[] objetos;
+}*predicado
 
 //struct para inserir no gNode. de cada vez que encontramos um owl:NamedIndividual vamos inseri-lo na n-ary tree genealogica
 
@@ -31,5 +34,3 @@ typedef struct Individuo
     URI mae;
     URI pai;
 }Individuo; 
-
-
