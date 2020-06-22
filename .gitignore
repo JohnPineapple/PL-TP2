@@ -1,2 +1,6 @@
 y.tab.c
 y.tab.h
+ag.exe
+lex.yy.c
+lex.yy.o
+y.tab.o
