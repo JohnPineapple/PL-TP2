@@ -8,19 +8,10 @@
 
 #.*	{}
 
-[a-zA-Z0-9]*:[a-zA-Z0-9]+ {yylval.svalue=strdup(yylex); return uri}
+[a-zA-Z0-9]*:[a-zA-Z0-9]+ {yylval.svalue=strdup(yytext); return uri;}
 
-[a-zA-Z]+ {yylval.svalue=strdup(yylex); return string}
+[a-zA-Z]+ {yylval.svalue=strdup(yytext); return string;}
 
-[0-9]+ {yylval.ivalue=atoi(yylex); return int}
+((\+|\-)?[1-9][0-9]*|0).?[0-9]+ {yylval.svalue=strdup(yytext); return string;}
 
-((+|-)?[1-9][0-9]*|0).?[0-9]+ {yylval.svalue=strdup(yylex); return string}
-
-((+|-)?[1-9][0-9]*|0) {yylval.svalue=strdup(yylex); return string}
-
-%%
-
-int yywrap()
-{
-	return 1;
-}
+((\+|\-)?[1-9][0-9]*|0) {yylval.svalue=strdup(yytext); return string;}

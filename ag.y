@@ -12,32 +12,28 @@
 
 %%
 
-Ontologia 
-	: ListaTriplos {printf("ola");}
+Ontologia: ListaTriplos {printf("ola");}
 	;
 
-ListaTriplos 
-	: ListaTriplos Triplo {}
+ListaTriplos: ListaTriplos Triplo {}
 	| Triplo {}
-
-Triplo  
-	: Sujeito Predicado Objeto ListaPreds '.' {}
 	;
 
-ListaPreds 
-	: ';' Predicado	Objeto ListaPreds {}
+Triplo: Sujeito Predicado Objeto ListaPreds '.' {}
+	;
+
+ListaPreds: ';' Predicado	Objeto ListaPreds {}
 	| ',' Objeto ListaPreds {}
+	|
 	;
 
-Sujeito 
-	: uri
+Sujeito: uri
 	; 
 
-Predicado 
-	: uri
+Predicado: uri
 	;	
 
-Objeto : uri {}
+Objeto: uri {}
 	| string {}
 	;
 
