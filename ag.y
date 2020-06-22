@@ -1,50 +1,54 @@
 %{
 #include "funcs.h"
-
-
-
 %}
 
-%token sujeito, predicado, objeto
+%union{
+    char *svalue;
+};
+
+%token uri string
+%type <svalue> Sujeito Predicado Objeto
+%type <svalue> string uri
 
 %%
 
-ontologia  
-	: sujeito predicados	{ 	ontologia o = malloc(sizeof(ontologia));
-								o.sujeito = $1;
-								o.predicados = $2; 
-							}
+Ontologia 
+	: ListaTriplos {printf("ola");}
 	;
 
-predicados : 
-	predicado objetos	{	predicado p = malloc(sizeof(predicado));
-							p.predicado = $1;
-							p.objects = $2;
-						}
-	| predicado objetos ';' predicados 		{	predicado p = malloc(sizeof(predicado));
-												p.predicado = $1;
-												p.objects = $2;
-												// E os outros são $3
-		   									}
-	;  
+ListaTriplos 
+	: ListaTriplos Triplo {}
+	| Triplo {}
 
-objetos : 
-	objeto	{
-			}
-	| objeto ',' objetos	{
+Triplo  
+	: Sujeito Predicado Objeto ListaPreds '.' {}
+	;
 
-		   					}
+ListaPreds 
+	: ';' Predicado	Objeto ListaPreds {}
+	| ',' Objeto ListaPreds {}
+	;
+
+Sujeito 
+	: uri
+	; 
+
+Predicado 
+	: uri
+	;	
+
+Objeto : uri {}
+	| string {}
 	;
 
 
 %%
-#include "lex.yy.c"
-
-int yyerror(char *s) { printf("ERRO: %s\n",s); return 0; }
-
 int main()
 {
 	yyparse();
-
 	return 0;
+}
+
+int yyerror(char *s) {
+	 printf("ERRO: %s\n",s); return 0; 
 }
