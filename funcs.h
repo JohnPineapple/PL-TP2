@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#define _GNU_SOURCE
 //#include <glib.h>
 //#include <gmodule.h>
 #include <stdio.h>
