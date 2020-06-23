@@ -4,3 +4,4 @@ ag.exe
 lex.yy.c
 lex.yy.o
 y.tab.o
+funcs.o

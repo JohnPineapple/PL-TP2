@@ -1,17 +1,17 @@
+// #include <sys/stat.h>
+// #include <sys/types.h>
+// #include <unistd.h>
+// #include <fcntl.h>
+// #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
 #define _GNU_SOURCE
-//#include <glib.h>
-//#include <gmodule.h>
 #include <stdio.h>
 
 typedef char* URI;
 typedef void* object;
+
+void processInfo(char* info);
 
 // typedef struct Ontologia
 // {
@@ -35,3 +35,4 @@ typedef void* object;
 //     URI mae;
 //     URI pai;
 // }Individuo; 
+
