@@ -3,22 +3,24 @@
 void processInfo(char* info){
 
     char* tupleList [MAXPREDS] ;
-    char* tripleList [MAXPREDS] ;
+    Predicado tripleList [MAXPREDS] ;
 
     int tupleLen = tokenizePreds(info,tupleList);
-    //tokenizePreds(tripleList,tupleList,tupleLen);
 
-   for (int i = 0; i < tupleLen; i++)
-   {
-       printf("%s\n",tupleList[i]);
-   }
+    parsePreds(tripleList,tupleList,tupleLen);
+
+    for (int i = 0; i < tupleLen; i++)
+    {
+        printf("%s,%s,%s\n",tripleList[i].sujeito,tripleList[i].predicado,tripleList[i].objeto);
+    }
+    
 }
 
 int tokenizePreds(char*info,char**tupleList){
     
-    char* subtoken;
     char* endstr;
     char* token = strtok_r(info,TRIPLESEPARATOR,&endstr);
+    char* subtoken;
     int tupleLen = 0;
 
     while( token != NULL ) {
@@ -36,5 +38,39 @@ int tokenizePreds(char*info,char**tupleList){
    }
     return tupleLen;
 }
+
+void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen){
+    //SUJ PRED OBJ
+    char* sentence[SENTENCESIZE];
+    char* tokenpred[SENTENCESIZE];
+    char*token;
+    int predpointer;
+    int tokensize;
+    int predstartpoint;
+
+    for (int i = 0; i < tupleLen; i++)
+    {   
+        predpointer=0;
+        tokensize=0;
+        token=strtok(tupleList[i],OBJSEPARATOR);
+        while(token!=NULL){
+            tokenpred[predpointer]=strdup(token);
+            token=strtok(NULL,OBJSEPARATOR);
+            predpointer++;
+            tokensize++;
+        }
+        predstartpoint=SENTENCESIZE-tokensize;
+        for(int i=0;i<tokensize;i++){
+            sentence[predstartpoint+i]=tokenpred[i];
+        }
+        Predicado p1 = {.sujeito = strdup(sentence[0]),
+                        .predicado = strdup(sentence[1]),
+                        .objeto = strdup(sentence[2])};
+        tripleList[i] = p1;
+    }
+
+    
+}
+
 
 

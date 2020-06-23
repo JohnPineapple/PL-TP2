@@ -6,6 +6,7 @@
 #define _GNU_SOURCE
 #define MAXPREDS 20000
 #define MAXURISIZE 100
+#define SENTENCESIZE 3
 
 #define TRIPLESEPARATOR "\n"
 #define PREDSEPARATOR "/"
@@ -18,10 +19,17 @@
 
 typedef char* URI;
 typedef void* object;
+typedef struct predicado {
+    char* sujeito;
+    char* predicado;
+    char* objeto;
+}Predicado;
 
 void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
+void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen);
+
 
 // typedef struct Ontologia
 // {
