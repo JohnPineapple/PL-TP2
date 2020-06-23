@@ -8,7 +8,6 @@
 #define PREDSEPARATOR "/"
 #define OBJSEPARATOR " "
 
-
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,12 +26,4 @@ int tokenizePreds(char*info, char**TupleList);
 void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen);
 void printDiagram(Predicado* tripleList,int tupleLen);
 
-
-// typedef struct Individuo
-// {
-//     URI id;
-//     int sexo;
-//     URI mae;
-//     URI pai;
-// }Individuo; 
 
