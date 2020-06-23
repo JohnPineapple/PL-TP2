@@ -8,7 +8,6 @@ void processInfo(char* info){
     int tupleLen = tokenizePreds(info,tupleList);
 
     parsePreds(tripleList,tupleList,tupleLen);
-
     printDiagram(tripleList,tupleLen);
 }
 

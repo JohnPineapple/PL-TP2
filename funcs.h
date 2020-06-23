@@ -1,8 +1,4 @@
-// #include <sys/stat.h>
-// #include <sys/types.h>
-// #include <unistd.h>
-// #include <fcntl.h>
-// #include <errno.h>
+
 #define _GNU_SOURCE
 #define MAXPREDS 20000
 #define MAXURISIZE 100
