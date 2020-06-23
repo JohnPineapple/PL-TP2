@@ -9,11 +9,7 @@ void processInfo(char* info){
 
     parsePreds(tripleList,tupleList,tupleLen);
 
-    for (int i = 0; i < tupleLen; i++)
-    {
-        printf("%s,%s,%s\n",tripleList[i].sujeito,tripleList[i].predicado,tripleList[i].objeto);
-    }
-    
+    printDiagram(tripleList,tupleLen);
 }
 
 int tokenizePreds(char*info,char**tupleList){
@@ -67,9 +63,16 @@ void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen){
                         .predicado = strdup(sentence[1]),
                         .objeto = strdup(sentence[2])};
         tripleList[i] = p1;
-    }
+    }    
+}
 
-    
+void printDiagram(Predicado* tripleList,int tupleLen){
+
+    printf("digraph { \n");
+    for(int i=0;i<tupleLen;i++){
+        printf("\"%s\" -> \"%s\"[label=\"%s\"]\n",tripleList[i].sujeito,tripleList[i].objeto,tripleList[i].predicado);
+    }
+    printf("}");
 }
 
 

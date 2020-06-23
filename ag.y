@@ -17,7 +17,7 @@ int yyerror();
 
 %%
 
-Ontologia: ListaTriplos {printf("Ontologia done\n");processInfo($1);}
+Ontologia: ListaTriplos {processInfo($1);}
 	;
 
 ListaTriplos:  ListaTriplos Triplo   {asprintf(&$$,"%s%s",$1,$2);}

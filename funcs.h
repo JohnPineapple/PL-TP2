@@ -29,22 +29,8 @@ void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
 void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen);
+void printDiagram(Predicado* tripleList,int tupleLen);
 
-
-// typedef struct Ontologia
-// {
-//     URI sujeito;
-//     predicado[] predicados;
-//     struct Ontologia* nextOntologia;
-// }*ontologia;
-
-// typedef struct Predicado
-// {
-// 	URI predicado;
-// 	object[] objetos;
-// }*predicado
-
-// //struct para inserir no gNode. de cada vez que encontramos um owl:NamedIndividual vamos inseri-lo na n-ary tree genealogica
 
 // typedef struct Individuo
 // {
