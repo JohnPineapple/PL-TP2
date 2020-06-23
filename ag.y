@@ -2,7 +2,6 @@
 #include "funcs.h"
 int yylex();
 int yyerror();
-int asprintf();
 %}
 
 %union{
@@ -18,7 +17,7 @@ int asprintf();
 
 %%
 
-Ontologia: ListaTriplos {printf("Ontologia done\n%s",$1);processInfo($1);}
+Ontologia: ListaTriplos {printf("Ontologia done\n");processInfo($1);}
 	;
 
 ListaTriplos:  ListaTriplos Triplo   {asprintf(&$$,"%s%s",$1,$2);}

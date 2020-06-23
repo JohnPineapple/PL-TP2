@@ -3,15 +3,25 @@
 // #include <unistd.h>
 // #include <fcntl.h>
 // #include <errno.h>
+#define _GNU_SOURCE
+#define MAXPREDS 20000
+#define MAXURISIZE 100
+
+#define TRIPLESEPARATOR "\n"
+#define PREDSEPARATOR "/"
+#define OBJSEPARATOR " "
+
+
 #include <string.h>
 #include <stdlib.h>
-#define _GNU_SOURCE
 #include <stdio.h>
 
 typedef char* URI;
 typedef void* object;
 
 void processInfo(char* info);
+
+int tokenizePreds(char*info, char**TupleList);
 
 // typedef struct Ontologia
 // {
