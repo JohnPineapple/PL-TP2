@@ -35,19 +35,30 @@ typedef struct filho {
     char* sujeito;
     char* filho;
 }Filho;
-
 typedef struct avo {
     char* sujeito;
     char* avo;
 }Avo;
 
+typedef struct irmao {
+    char* sujeito;
+    char* irmao;
+}Irmao;
+
 void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
+
 void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen);
+
 int parseIndividuals(Predicado* tripleList,int tupleLen,char** individualList);
+
 int parseRelacoes(Predicado* tripleList,int tupleLen,Projenitor* parentList,Filho* childList);
+
 int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,int relacoesLen,Avo* avoList);
+
+int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList,Filho* childList,int relacoesLen,Irmao* irmaoList);
+
 void printDiagram(Predicado* tripleList,int tupleLen);
 
 

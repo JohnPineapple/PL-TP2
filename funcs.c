@@ -11,14 +11,17 @@ void processInfo(char* info){
     Projenitor parentList [tupleLen]; 
     Filho childList [tupleLen];
     Avo avoList [tupleLen];
+    Irmao irmaoList [tupleLen];
 
     parsePreds(tripleList,tupleList,tupleLen);
     
     int individualsLen=parseIndividuals(tripleList,tupleLen,individualsList);
     int relacoesLen=parseRelacoes(tripleList,tupleLen,parentList,childList);
     int avoLen=parseAvos(individualsList,individualsLen,parentList,relacoesLen,avoList);
+    int irmaoLen=parseIrmaos(individualsList,individualsLen,parentList,childList,relacoesLen,irmaoList);
     //Irmao,tio,primo
 
+    printf("%d",irmaoLen);
     printDiagram(tripleList,tupleLen);
 
 
@@ -135,6 +138,33 @@ int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,i
     }
     return avoLen;
 }
+
+int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList,Filho* childList,int relacoesLen, Irmao* irmaoList){
+    
+    int irmaoLen=0;
+
+    for (int i = 0; i < individualsLen; i++)
+    {
+        for (int k = 0; k < relacoesLen; k++)
+        {   
+            if(strcmp(individualsList[i],parentList[k].sujeito)==0){
+                for (int j = 0; j < relacoesLen; j++)
+                {   
+                    //Encontrar um filho do pai que nao o proprio
+                    if((strcmp(parentList[k].projenitor,childList[j].sujeito)==0)&&(strcmp(individualsList[i],childList[j].filho)!=0)){
+                        Irmao i1={.sujeito=individualsList[i],
+                                  .irmao=childList[j].filho
+                                };
+                        irmaoList[irmaoLen]= i1;
+                        irmaoLen++;
+                    }
+                }
+            }
+        }   
+    }
+    return irmaoLen;
+}
+
 
 
 

@@ -1,0 +1,21 @@
+#################################################################
+# Individuals
+#################################################################
+
+### http://www.di.uminho.pt/prc/ontologies/2020/prc-genoa#Abilio_Silva_Ramalho
+:Abilio_Silva_Ramalho rdf:type owl:NamedIndividual ,
+:Pessoa ;
+:temMae :Custodia_Azevedo_1867 ;
+:temPai :Manuel_Silva_Ramalho_1866 .
+
+### http://www.di.uminho.pt/prc/ontologies/2020/prc-genoa#Albina_Esteves_Araujo_1910
+:Albina_Esteves_Araujo_1910 rdf:type owl:NamedIndividual ,
+:Pessoa ;
+:temMae :Maria_Araujo_1884 ;
+:temPai :Abilio_Silva_Ramalho .
+
+### http://www.di.uminho.pt/prc/ontologies/2020/prc-genoa#Albina_Esteves_Araujo_1910
+:Jose_Antonio_1850 rdf:type owl:NamedIndividual ,
+:Pessoa ;
+:temMae :Maria_Araujo_1884 ;
+:temPai :Abilio_Silva_Ramalho .
