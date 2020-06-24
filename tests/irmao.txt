@@ -19,3 +19,9 @@
 :Pessoa ;
 :temMae :Maria_Araujo_1884 ;
 :temPai :Abilio_Silva_Ramalho .
+
+### http://www.di.uminho.pt/prc/ontologies/2020/prc-genoa#Albina_Esteves_Araujo_1910
+:Roberto_Jose_1850 rdf:type owl:NamedIndividual ,
+:Pessoa ;
+:temMae :Maria_Araujo_1884 ;
+:temPai :Abilio_Silva_Ramalho .

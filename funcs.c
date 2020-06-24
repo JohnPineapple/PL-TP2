@@ -19,8 +19,8 @@ void processInfo(char* info){
     int relacoesLen=parseRelacoes(tripleList,tupleLen,parentList,childList);
     int avoLen=parseAvos(individualsList,individualsLen,parentList,relacoesLen,avoList);
     int irmaoLen=parseIrmaos(individualsList,individualsLen,parentList,childList,relacoesLen,irmaoList);
-    //Irmao,tio,primo
-
+    //tio,primo
+    
     printf("%d",irmaoLen);
     printDiagram(tripleList,tupleLen);
 
@@ -144,7 +144,7 @@ int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList
     int irmaoLen=0;
 
     for (int i = 0; i < individualsLen; i++)
-    {
+    {   
         for (int k = 0; k < relacoesLen; k++)
         {   
             if(strcmp(individualsList[i],parentList[k].sujeito)==0){
@@ -162,9 +162,43 @@ int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList
             }
         }   
     }
-    return irmaoLen;
+
+    //Filtrar repetidos
+    int uniqueIrmaoCounter=0;
+    int hasDouble;
+    for (int i = 0; i < irmaoLen; i++)
+    {   
+        hasDouble=FALSE;
+        for (int k = i+1; k < irmaoLen; k++)
+        {
+            if(igualIrmao(irmaoList[i],irmaoList[k])==TRUE){
+                hasDouble=TRUE;
+                break;
+            }
+        } 
+        if(hasDouble==FALSE){
+            irmaoList[uniqueIrmaoCounter]=irmaoList[i];
+            uniqueIrmaoCounter++;
+        }
+    }
+    return uniqueIrmaoCounter;
 }
 
+int igualIrmao(Irmao i1,Irmao i2){
+    printf("%s %s %s %s\n",i1.sujeito,i1.irmao,i2.sujeito,i2.irmao);
+    if(strcmp(i1.sujeito,i2.sujeito)==0&&strcmp(i1.irmao,i2.irmao)==0){
+        printf("true\n");
+        return TRUE;
+    }
+    else if(strcmp(i1.sujeito,i2.irmao)==0&&strcmp(i1.irmao,i2.sujeito)==0){
+        printf("true\n");
+        return TRUE;
+    }
+    else{
+        printf("false\n");
+        return FALSE;
+    }
+}
 
 
 

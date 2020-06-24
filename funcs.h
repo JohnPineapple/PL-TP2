@@ -4,6 +4,9 @@
 #define MAXURISIZE 100
 #define SENTENCESIZE 3
 
+#define FALSE 0
+#define TRUE 1
+
 #define TRIPLESEPARATOR "\n"
 #define PREDSEPARATOR "/"
 #define OBJSEPARATOR " "
@@ -58,6 +61,8 @@ int parseRelacoes(Predicado* tripleList,int tupleLen,Projenitor* parentList,Filh
 int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,int relacoesLen,Avo* avoList);
 
 int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList,Filho* childList,int relacoesLen,Irmao* irmaoList);
+
+int igualIrmao(Irmao i1,Irmao i2);
 
 void printDiagram(Predicado* tripleList,int tupleLen);
 
