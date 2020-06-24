@@ -23,6 +23,8 @@ void processInfo(char* info){
     int irmaoLen=parseIrmaos(individualsList,individualsLen,parentList,childList,relacoesLen,irmaoList);
     int tioLen=parseTios(individualsList,individualsLen,irmaoList,irmaoLen,parentList,relacoesLen,tioList);
     int primoLen=parsePrimos(individualsList,individualsLen,tioList,tioLen,childList,relacoesLen,primoList);
+
+
     // //tios
     // for (int i = 0; i < tioLen; i++)
     // {
@@ -35,7 +37,7 @@ void processInfo(char* info){
     // }
     
     // printf("%d\n",primoLen);
-    printDiagram(tripleList,tupleLen);
+    printDiagram(tripleList,tupleLen,avoList,avoLen,irmaoList,irmaoLen,tioList,tioLen,primoList,primoLen);
 
 
 }
@@ -251,7 +253,6 @@ int parsePrimos(char** individualsList,int individualsLen,Tio* tioList,int tioLe
                 for (int j = 0; j < relacoesLen; j++)
                 {   
                     if(strcmp(tioList[k].tio,childList[j].sujeito)==0){
-                        printf("indiv %s  cousin%s\n",individualsList[i],childList[j].filho);
                         Primo p1={.sujeito=individualsList[i],
                                   .primo=childList[j].filho
                                 };
@@ -295,12 +296,30 @@ int igualPrimo(Primo p1,Primo p2){
     }
 }
 
-void printDiagram(Predicado* tripleList,int tupleLen){
+void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen){
 
     printf("digraph { \n");
     for(int i=0;i<tupleLen;i++){
         printf("\"%s\" -> \"%s\"[label=\"%s\"]\n",tripleList[i].sujeito,tripleList[i].objeto,tripleList[i].predicado);
     }
+
+    for (int i = 0; i < avoLen; i++)
+    {
+        printf("\"%s\" -> \"%s\"[label=\"%s\"]\n",avoList[i].avo,avoList[i].sujeito,":avo");
+    }
+    for (int i = 0; i < irmaoLen; i++)
+    {
+        printf("\"%s\" -> \"%s\"[arrowhead=none][label=\"%s\"]\n",irmaoList[i].irmao,irmaoList[i].sujeito,":irmao");
+    }
+    for (int i = 0; i < tioLen; i++)
+    {
+        printf("\"%s\" -> \"%s\"[label=\"%s\"]\n",tioList[i].tio,tioList[i].sujeito,":tio");
+    }
+    for (int i = 0; i < primoLen; i++)
+    {
+        printf("\"%s\" -> \"%s\"[arrowhead=none][label=\"%s\"]\n",primoList[i].primo,primoList[i].sujeito,":primo");
+    }
+
     printf("}");
 }
 

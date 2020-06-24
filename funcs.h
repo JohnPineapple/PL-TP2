@@ -80,6 +80,6 @@ int parsePrimos(char** individualsList,int individualsLen,Tio* tioList,int tioLe
 
 int igualPrimo(Primo p1,Primo p2);
 
-void printDiagram(Predicado* tripleList,int tupleLen);
+void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen);
 
 

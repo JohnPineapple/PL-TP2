@@ -1,0 +1,9 @@
+digraph {
+    "Custodia-Manuel"->"Abilio-'Maria'"
+    "Custodia-Manuel"->"Rui-'Lola'"
+    "Abilio-'Maria'"->"Jose"
+    "Abilio-'Maria'"->"Roberto"
+    "Abilio-'Maria'"->"Albina"
+    "Rui-'Lola'"->"Joana"
+    "Rui-'Lola'"->"Joao"
+}
