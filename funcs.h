@@ -8,6 +8,12 @@
 #define PREDSEPARATOR "/"
 #define OBJSEPARATOR " "
 
+//Predicados Especiais
+#define TEMMAE ":temMae"
+#define TEMPAI ":temPai" 
+#define TYPE   "rdf:type"
+#define INDIVIDUAL "owl:NamedIndividual"
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,10 +26,28 @@ typedef struct predicado {
     char* objeto;
 }Predicado;
 
+typedef struct projenitor {
+    char* sujeito;
+    char* projenitor;
+}Projenitor;
+
+typedef struct filho {
+    char* sujeito;
+    char* filho;
+}Filho;
+
+typedef struct avo {
+    char* sujeito;
+    char* avo;
+}Avo;
+
 void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
 void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen);
+int parseIndividuals(Predicado* tripleList,int tupleLen,char** individualList);
+int parseRelacoes(Predicado* tripleList,int tupleLen,Projenitor* parentList,Filho* childList);
+int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,int relacoesLen,Avo* avoList);
 void printDiagram(Predicado* tripleList,int tupleLen);
 
 

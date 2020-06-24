@@ -7,8 +7,21 @@ void processInfo(char* info){
 
     int tupleLen = tokenizePreds(info,tupleList);
 
+    char* individualsList [tupleLen];
+    Projenitor parentList [tupleLen]; 
+    Filho childList [tupleLen];
+    Avo avoList [tupleLen];
+
     parsePreds(tripleList,tupleList,tupleLen);
+    
+    int individualsLen=parseIndividuals(tripleList,tupleLen,individualsList);
+    int relacoesLen=parseRelacoes(tripleList,tupleLen,parentList,childList);
+    int avoLen=parseAvos(individualsList,individualsLen,parentList,relacoesLen,avoList);
+    //Irmao,tio,primo
+
     printDiagram(tripleList,tupleLen);
+
+
 }
 
 int tokenizePreds(char*info,char**tupleList){
@@ -64,6 +77,67 @@ void parsePreds(Predicado* tripleList,char** tupleList,int tupleLen){
         tripleList[i] = p1;
     }    
 }
+
+int parseRelacoes(Predicado* tripleList,int tupleLen,Projenitor* parentList,Filho* childList){
+    
+    int relacoesLen=0;
+
+    for(int i=0;i<tupleLen;i++){
+        if((strcmp(tripleList[i].predicado,TEMMAE)==0||strcmp(tripleList[i].predicado,TEMPAI)==0)){
+            Projenitor p1 = {.sujeito=tripleList[i].sujeito,
+                             .projenitor=tripleList[i].objeto};
+            Filho f1 = {.sujeito=tripleList[i].objeto,
+                        .filho=tripleList[i].sujeito};   
+
+            parentList[relacoesLen]=p1;                          
+            childList[relacoesLen]=f1; 
+
+            relacoesLen++;                
+        }
+    }
+    return relacoesLen;
+}
+
+int parseIndividuals(Predicado* tripleList,int tupleLen,char** individualList){
+    
+    int individualLen=0;
+
+    for(int i=0;i<tupleLen;i++){
+        if((strcmp(tripleList[i].predicado,TYPE)==0)&&(strcmp(tripleList[i].objeto,INDIVIDUAL)==0)){                      
+            individualList[individualLen]=tripleList[i].sujeito; 
+            individualLen++;                
+        }
+    }
+    return individualLen;
+}
+
+int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,int relacoesLen,Avo* avoList){
+
+    int avoLen=0;
+
+    for (int i = 0; i < individualsLen; i++)
+    {
+        for (int k = 0; k < relacoesLen; k++)
+        {   
+            if(strcmp(individualsList[i],parentList[k].sujeito)==0){
+                for (int j = 0; j < relacoesLen; j++)
+                {   
+                    if(strcmp(parentList[k].projenitor,parentList[j].sujeito)==0){
+                        Avo a1={.sujeito=individualsList[i],
+                                .avo=parentList[j].projenitor
+                                };
+                        avoList[avoLen]= a1;
+                        avoLen++;
+                    }
+                }
+            }
+        }   
+    }
+    return avoLen;
+}
+
+
+
 
 void printDiagram(Predicado* tripleList,int tupleLen){
 
