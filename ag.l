@@ -19,3 +19,5 @@
 ,  { return(COMMA);}
 ;  { return(SEMICOLON);}
 \. { return(DOT);}
+
+%%
