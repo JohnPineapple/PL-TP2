@@ -48,6 +48,16 @@ typedef struct irmao {
     char* irmao;
 }Irmao;
 
+typedef struct tio {
+    char* sujeito;
+    char* tio;
+}Tio;
+
+typedef struct primo {
+    char* sujeito;
+    char* primo;
+}Primo;
+
 void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
@@ -63,6 +73,12 @@ int parseAvos(char** individualsList,int individualsLen,Projenitor* parentList,i
 int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList,Filho* childList,int relacoesLen,Irmao* irmaoList);
 
 int igualIrmao(Irmao i1,Irmao i2);
+
+int parseTios(char** individualsList,int individualsLen,Irmao* irmaoList,int irmaoLen,Projenitor* parentList,int relacoesLen,Tio* tioList);
+
+int parsePrimos(char** individualsList,int individualsLen,Tio* tioList,int tioLen,Filho* childList,int relacoesLen, Primo* primoList);
+
+int igualPrimo(Primo p1,Primo p2);
 
 void printDiagram(Predicado* tripleList,int tupleLen);
 

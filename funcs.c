@@ -12,6 +12,8 @@ void processInfo(char* info){
     Filho childList [tupleLen];
     Avo avoList [tupleLen];
     Irmao irmaoList [tupleLen];
+    Tio tioList [tupleLen];
+    Primo primoList [tupleLen];
 
     parsePreds(tripleList,tupleList,tupleLen);
     
@@ -19,9 +21,20 @@ void processInfo(char* info){
     int relacoesLen=parseRelacoes(tripleList,tupleLen,parentList,childList);
     int avoLen=parseAvos(individualsList,individualsLen,parentList,relacoesLen,avoList);
     int irmaoLen=parseIrmaos(individualsList,individualsLen,parentList,childList,relacoesLen,irmaoList);
-    //tio,primo
+    int tioLen=parseTios(individualsList,individualsLen,irmaoList,irmaoLen,parentList,relacoesLen,tioList);
+    int primoLen=parsePrimos(individualsList,individualsLen,tioList,tioLen,childList,relacoesLen,primoList);
+    // //tios
+    // for (int i = 0; i < tioLen; i++)
+    // {
+    //     printf("%s %s\n",tioList[i].sujeito,tioList[i].tio);
+    // }
+    // //primos
+    // for (int i = 0; i < primoLen; i++)
+    // {
+    //     printf("%s %s\n",primoList[i].sujeito,primoList[i].primo);
+    // }
     
-    printf("%d",irmaoLen);
+    // printf("%d\n",primoLen);
     printDiagram(tripleList,tupleLen);
 
 
@@ -185,23 +198,102 @@ int parseIrmaos(char** individualsList,int individualsLen,Projenitor* parentList
 }
 
 int igualIrmao(Irmao i1,Irmao i2){
-    printf("%s %s %s %s\n",i1.sujeito,i1.irmao,i2.sujeito,i2.irmao);
     if(strcmp(i1.sujeito,i2.sujeito)==0&&strcmp(i1.irmao,i2.irmao)==0){
-        printf("true\n");
         return TRUE;
     }
     else if(strcmp(i1.sujeito,i2.irmao)==0&&strcmp(i1.irmao,i2.sujeito)==0){
-        printf("true\n");
         return TRUE;
     }
     else{
-        printf("false\n");
         return FALSE;
     }
 }
 
+int parseTios(char** individualsList,int individualsLen,Irmao* irmaoList,int irmaoLen,Projenitor* parentList,int relacoesLen,Tio* tioList){
+   
+   int tioLen=0;
+   for (int i = 0; i < individualsLen; i++)
+    {   
+        for (int k = 0; k < relacoesLen; k++)
+        {   
+            if(strcmp(individualsList[i],parentList[k].sujeito)==0){
+                for (int j = 0; j < irmaoLen; j++)
+                {   
+                    if(strcmp(parentList[k].projenitor,irmaoList[j].sujeito)==0){
+                        Tio t1={.sujeito=individualsList[i],
+                                .tio=irmaoList[j].irmao
+                                };
+                        tioList[tioLen]= t1;
+                        tioLen++;
+                    }
+                    else if(strcmp(parentList[k].projenitor,irmaoList[j].irmao)==0){
+                        Tio t1={.sujeito=individualsList[i],
+                                .tio=irmaoList[j].sujeito
+                                };
+                        tioList[tioLen]= t1;
+                        tioLen++;
+                    }
+                }
+            }
+        }   
+    }
+    return tioLen; 
+}
 
+int parsePrimos(char** individualsList,int individualsLen,Tio* tioList,int tioLen,Filho* childList,int relacoesLen, Primo* primoList){
 
+   int primoLen=0;
+   for (int i = 0; i < individualsLen; i++)
+    {   
+        for (int k = 0; k < tioLen; k++)
+        {   
+            if(strcmp(individualsList[i],tioList[k].sujeito)==0){
+                for (int j = 0; j < relacoesLen; j++)
+                {   
+                    if(strcmp(tioList[k].tio,childList[j].sujeito)==0){
+                        printf("indiv %s  cousin%s\n",individualsList[i],childList[j].filho);
+                        Primo p1={.sujeito=individualsList[i],
+                                  .primo=childList[j].filho
+                                };
+                        primoList[primoLen]= p1;
+                        primoLen++;
+                    }
+                }
+            }
+        }   
+    }
+
+    int uniquePrimoCounter=0;
+    int hasDouble;
+    for (int i = 0; i < primoLen; i++)
+    {   
+        hasDouble=FALSE;
+        for (int k = i+1; k < primoLen; k++)
+        {
+            if(igualPrimo(primoList[i],primoList[k])==TRUE){
+                hasDouble=TRUE;
+                break;
+            }
+        } 
+        if(hasDouble==FALSE){
+            primoList[uniquePrimoCounter]=primoList[i];
+            uniquePrimoCounter++;
+        }
+    }
+    return uniquePrimoCounter;
+}
+
+int igualPrimo(Primo p1,Primo p2){
+    if(strcmp(p1.sujeito,p2.sujeito)==0&&strcmp(p1.primo,p2.primo)==0){
+        return TRUE;
+    }
+    else if(strcmp(p1.sujeito,p2.primo)==0&&strcmp(p1.primo,p2.sujeito)==0){
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
+}
 
 void printDiagram(Predicado* tripleList,int tupleLen){
 
