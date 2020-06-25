@@ -24,22 +24,7 @@ void processInfo(char* info){
     int tioLen=parseTios(individualsList,individualsLen,irmaoList,irmaoLen,parentList,relacoesLen,tioList);
     int primoLen=parsePrimos(individualsList,individualsLen,tioList,tioLen,childList,relacoesLen,primoList);
 
-
-    // //tios
-    // for (int i = 0; i < tioLen; i++)
-    // {
-    //     printf("%s %s\n",tioList[i].sujeito,tioList[i].tio);
-    // }
-    // //primos
-    // for (int i = 0; i < primoLen; i++)
-    // {
-    //     printf("%s %s\n",primoList[i].sujeito,primoList[i].primo);
-    // }
-    
-    // printf("%d\n",primoLen);
     printDiagram(tripleList,tupleLen,avoList,avoLen,irmaoList,irmaoLen,tioList,tioLen,primoList,primoLen);
-
-
 }
 
 int tokenizePreds(char*info,char**tupleList){
