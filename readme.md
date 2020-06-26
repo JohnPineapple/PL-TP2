@@ -11,3 +11,9 @@ O projeto contém uma Makefile cujo comando "make" gera o executável "ag.exe", 
 
 Para fazer a conversão de uma ontologia para DOT o executável deve ser executado da seguinte maneira:
 "./ag.exe   < sourcefolder/sourcefile.txt   > destinyfolder/destinyfile.dot "
+
+Para convertermos o resultado em DOT para SVG corremos:
+
+"dot -T svg sourcefolder/sourcefile.dot > destinyfolder/destinyfile.svg"
+
+Como sourcefolder usamos o diretório graphviz, e como destinyfolder usamos um novo diretório svg.

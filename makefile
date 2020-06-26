@@ -16,3 +16,6 @@ lex.yy.c : ag.l y.tab.h
 funcs.o : funcs.c funcs.h
 	gcc -c funcs.c
 
+clean : 
+	rm ag.exe funcs.o lex.yy.c lex.yy.o y.tab.c y.tab.h y.tab.o
+

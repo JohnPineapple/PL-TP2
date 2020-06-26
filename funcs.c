@@ -14,6 +14,7 @@ void processInfo(char* info){
     Irmao irmaoList [tupleLen];
     Tio tioList [tupleLen];
     Primo primoList [tupleLen];
+    Conjuge conjugeList[tupleLen];
 
     parsePreds(tripleList,tupleList,tupleLen);
     
@@ -23,8 +24,23 @@ void processInfo(char* info){
     int irmaoLen=parseIrmaos(individualsList,individualsLen,parentList,childList,relacoesLen,irmaoList);
     int tioLen=parseTios(individualsList,individualsLen,irmaoList,irmaoLen,parentList,relacoesLen,tioList);
     int primoLen=parsePrimos(individualsList,individualsLen,tioList,tioLen,childList,relacoesLen,primoList);
+    int conjugeLen=parseConjuge(individualsList,individualsLen,childList,relacoesLen,conjugeList);
 
-    printDiagram(tripleList,tupleLen,avoList,avoLen,irmaoList,irmaoLen,tioList,tioLen,primoList,primoLen);
+    // //tios
+    // for (int i = 0; i < tioLen; i++)
+    // {
+    //     printf("%s %s\n",tioList[i].sujeito,tioList[i].tio);
+    // }
+    // //primos
+    // for (int i = 0; i < primoLen; i++)
+    // {
+    //     printf("%s %s\n",primoList[i].sujeito,primoList[i].primo);
+    // }
+    
+    // printf("%d\n",primoLen);
+    printDiagram(tripleList,tupleLen,avoList,avoLen,irmaoList,irmaoLen,tioList,tioLen,primoList,primoLen,conjugeList, conjugeLen);
+
+
 }
 
 int tokenizePreds(char*info,char**tupleList){
@@ -281,7 +297,35 @@ int igualPrimo(Primo p1,Primo p2){
     }
 }
 
-void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen){
+
+int parseConjuge(char** individualsList,int individualsLen, Filho* childList,int relacoesLen, Conjuge* conjugeList){
+    
+    int conjugeLen=0;
+
+    for (int i = 0; i < individualsLen; i++)
+    {   
+        for (int k = 0; k < relacoesLen; k++)
+        {   
+            if(strcmp(individualsList[i],childList[k].sujeito)==0){
+                for (int j = 0; j < relacoesLen; j++)
+                {   
+                    if((strcmp(childList[k].filho, childList[j].filho)==0)&&(strcmp(individualsList[i],childList[j].sujeito)!=0)){
+                        Conjuge c1={.sujeito=individualsList[i],
+                                    .conjuge=childList[j].sujeito
+                                };
+                        conjugeList[conjugeLen]= c1;
+                        conjugeLen++;
+                    }
+                }
+                break;
+            }
+        }   
+    }
+    return conjugeLen;
+}
+
+
+void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen, Conjuge* conjugeList, int conjugeLen){
 
     printf("digraph { \n");
     for(int i=0;i<tupleLen;i++){
@@ -304,7 +348,10 @@ void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irm
     {
         printf("\"%s\" -> \"%s\"[arrowhead=none][label=\"%s\"]\n",primoList[i].primo,primoList[i].sujeito,":primo");
     }
-
+    for (int i = 0; i < conjugeLen; i++)
+    {
+        printf("\"%s\" -> \"%s\"[arrowhead=none][label=\"%s\"]\n",conjugeList[i].conjuge,conjugeList[i].sujeito,":conjuge");
+    }
     printf("}");
 }
 

@@ -58,6 +58,11 @@ typedef struct primo {
     char* primo;
 }Primo;
 
+typedef struct conjuge {
+    char* sujeito;
+    char* conjuge;
+}Conjuge;
+
 void processInfo(char* info);
 
 int tokenizePreds(char*info, char**TupleList);
@@ -80,6 +85,8 @@ int parsePrimos(char** individualsList,int individualsLen,Tio* tioList,int tioLe
 
 int igualPrimo(Primo p1,Primo p2);
 
-void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen);
+int parseConjuge(char** individualsList,int individualsLen, Filho* childList,int relacoesLen, Conjuge* conjugeList);
+
+void printDiagram(Predicado* tripleList,int tupleLen,Avo* avoList,int avoLen,Irmao* irmaoList,int irmaoLen,Tio* tioList,int tioLen, Primo* primoList,int primoLen, Conjuge* conjugeList, int conjugeLen);
 
 
